@@ -54,14 +54,52 @@
           background: rgba(33, 44, 79, 0.85);
 
         }
+        .nav.navbar-nav.psu-navigation .psu-nav-item .psu-nav-brand{
+          color:#dedede;
+          font-size: 24px;
+        }
         .nav.navbar-nav.psu-navigation .psu-nav-item .psu-nav-link{
           color:#fff;
           font-size: 14px;
           font-weight: 500;
+          transition: .25s ease-in;
+        }
+        .nav.navbar-nav.psu-navigation .psu-nav-item.active .psu-nav-link{
+          background: transparent;
+          color:#56CCF2;
+        }
+        .nav.navbar-nav.psu-navigation .psu-nav-item .psu-nav-link.psu-nav-cta{
+          border: 1px solid #fff;
+          padding: 8px 30px;
+          border-radius: 30px;
+          font-size: 14px;
+          font-family: 'montserrat';
+          font-weight: 700;
+          background: transparent;
+          display: inline-block;
+          transition: .5s .2s ease-in;
+        }
+        .nav.navbar-nav.psu-navigation .psu-nav-item .psu-nav-link.psu-nav-cta:hover{
+          background: #fff;
+          color: #000;
+          border: 1px solid transparent;
+          font-weight: 700;
         }
 
         /* media queries */
         @media screen and (min-width: 768px){
+          .psu-navbar{
+            display: flex;
+            min-height: 65px;
+          }
+          .psu-navbar .navbar-collapse{
+            flex: 1;
+            height: 100%;
+          }
+          .nav.navbar-nav.psu-navigation{
+            height: 100%;
+          }
+
           .psu-navbar .navbar-header{
             display: none;
 
@@ -71,7 +109,13 @@
             width: 100%;
 
           }
+          .nav.navbar-nav.psu-navigation .psu-nav-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
         }
+        /* navigation end */
 
     </style>
 </head>
@@ -92,8 +136,8 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav psu-navigation">
           <li class="active psu-nav-item"><a class="psu-nav-link" href="#">About</a></li>
-          <li class="psu-nav-item psu-mx-auto hidden-xs"><a class="psu-nav-link" href="#">SITE LOGO|HOME</a></li>
-          <li class="psu-nav-item"><a class="psu-nav-link" href="#">Get Started</a></li>
+          <li class="psu-nav-item psu-mx-auto hidden-xs"><a class="psu-nav-brand" href="#">LOGO|HOME</a></li>
+          <li class="psu-nav-item"><a class="psu-nav-link psu-nav-cta" href="#">Get Started</a></li>
           <li class="psu-nav-item"><a class="psu-nav-link" href="#">Contact</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
