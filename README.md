@@ -1,2 +1,2 @@
 # Project-SignUp
-Description: PSU (Project Sign Up) is a decentralized marketplace for talent and skill, designed for ease of use, flexibility, and a wide variety of use cases.
+Description: PSU (Project Sign Up) is a simple landing page with a form for signUp/login functionality ready to hit endpoints
