@@ -356,22 +356,22 @@
         border: 3px solid #C4C4C4;
     }
     .psu-radio + .psu-radio-check::after {
-        content: " ";
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background:#01AAE4;
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        transition: all .25s ease-out;
-        opacity: 0;
+      content: " ";
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background:#01AAE4;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: all .25s ease-out;
+      opacity: 0;
     }
     .psu-radio:checked + .psu-radio-check::after {
-        opacity: 1;
+      opacity: 1;
     }
     .psu-radio:focus + .psu-radio-check {
-        border: 3px solid#01AAE4;
+      border: 3px solid#01AAE4;
     }
     .psu-form label.psu-radio-text{
       margin: 0 0 0 8px;
@@ -390,16 +390,45 @@
       text-transform: capitalize;
     }
     .content-wrap {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.7);
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
     }
-    .form-section.user-type .content-wrap span.previous-btn{
-      color: #000;
-      font-weight: 700;
-      font-size: 24px;
+    span#previous-btn {
+      font-size: 30px;
+    font-weight: 700;
+    color: #000;
+    display: inline-block;
+    width: 22px;
+    line-height: 0;
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    }
+    a.cta-btn{
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+      transition: all .2s ease;
+    }
+    a.cta-btn:hover{
+      transform: scale(1.2);
+    }
+    a.cta-btn:visited {
+      transform: scale(1);
+    }
+    .form-cta-wrap {
+      font-size: 13px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-family: montserrat;
+    top: -18px;
+    right: -307px;
     }
     .content-wrap .image-wrap {
       max-width: 150px;
@@ -409,6 +438,8 @@
       width: 100%;
       margin-bottom: 40px;
     }
+
+
     /* PARSLEY ERROR MESSAGE STYLING */
     li.parsley-required, .parsley-errors-list.filled .parsley-type, ul.parsley-errors-list.filled li{
       color: red;
@@ -462,6 +493,15 @@
           })
         }
 
+        function previousFormsSection (trigger, currentSectionId, targetSectionId) {
+          trigger.on('click', function () {
+            trigger.toggleClass('hidden');
+            currentSectionId.addClass('hidden');
+            targetSectionId.removeClass('hidden');
+          })
+        }
+        
+
 
         // parsely form validator 
         $(function () {
@@ -478,10 +518,31 @@
         // $('#psu-signup-btn').on('click', function (){
         // })
           switchFormsSection($('#psu-signup-btn'), $('#user-contact'), $('#user-type'));
-          switchFormsSection($('previous-btn'), $('#user-type')), $('#user-contact');
+          previousFormsSection($('.cta-btn'), $('#user-type')), $('#user-contact');
 
 
+      // User category selection confirmation
+      $('.psu-radio').change(function () {
+          swal({
+            title: "Confirmation!",
+            text: "Are you sure you want to proceed as a "+ $(this).val()+ '?',
+            icon: "warning",
+            buttons: ['No', 'Yes'],
+          }).then((value) => {
+              if (value) {
+                swal("Successful " + $(this).val() + " Sign Up!", {
+                  icon: "success",
+                });
+              } else {
+                swal({
+                  text:"Please select a category to continue"});
+                // swal("Please select a category to continue");
+                // unselects the selected option by choosing a psuedo option
+                $('.psuedo-option').trigger('click');
+              }
+            });
 
+        })
        
      
 
@@ -599,7 +660,13 @@
                   <div class="form-section form-section-signup user-type hidden" id="user-type">
                       <div class="row">
                         <div class="col-xs-12">
-                          <span class="previous-btn" id="previous-btn">&larr;back</span>
+                          <div class="form-cta-wrap">
+                            <a href="#" class="cta-btn">
+                              <span class="previous-btn" id="previous-btn">&larr;</span>back
+                            </a>
+
+                          </div>
+
 
                           <h2>Choose your category</h2>
                         </div>
@@ -618,7 +685,7 @@
                                 class="psu-radio" 
                                 name="choice" 
                                 value="student" 
-                                required>
+                                >
                               <span class="psu-radio-check"></span>
                               <label for="psu-radio-1" class="psu-radio-text">Student</label>
                             </div>
