@@ -267,6 +267,7 @@
         transition: .2s ease-in;
         border-radius: 5px;
         border: 2px solid transparent;
+        margin-top: 10px;
       }
       .psu-form-btn:hover{
         color: #fff;
@@ -276,6 +277,9 @@
         outline: none;
         color: #fefefe;
         border: 2px solid rgba(0, 0, 0, .5);
+      }
+      .psu-form label.psu-form-checkbox-label{
+        margin-bottom: 0;
       }
       .psu-form-checkbox-label a{
         color: #01AAE4;
@@ -309,31 +313,6 @@
         margin-bottom: 30px;
       }
       /* end */
-
-      /* form popup & overlay */
-      /* .psu-form-wrap{
-        height: 100vh;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        visibility: hidden;
-        opacity: 0;
-        transition: all .3s ease-in;
-      } */
-      /* .psu-form-overlay{
-        position: absolute;
-        z-index: 150;
-        height: 100vh;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background-color: rgba(0,0,0,.8);
-      } */
-      /* .psu-form-wrap .psu-form{
-        z-index: 200;
-      } */
 
       .psu-form-wrap.open{
         visibility: visible;
@@ -417,6 +396,11 @@
       align-items: center;
       height: 100%;
     }
+    .form-section.user-type .content-wrap span.previous-btn{
+      color: #000;
+      font-weight: 700;
+      font-size: 24px;
+    }
     .content-wrap .image-wrap {
       max-width: 150px;
       max-height: 150px;
@@ -424,6 +408,13 @@
       border-radius: 50%;
       width: 100%;
       margin-bottom: 40px;
+    }
+    /* PARSLEY ERROR MESSAGE STYLING */
+    li.parsley-required, .parsley-errors-list.filled .parsley-type, ul.parsley-errors-list.filled li{
+      color: red;
+      margin-top: 7px;
+      font-size: 12px;
+      font-weight: 500;
     }
 
 
@@ -463,8 +454,16 @@
           })
         }
 
+        function switchFormsSection (trigger, formId, spawn) {
+          trigger.on('click', function () {
+            trigger.toggleClass('hidden');
+            formId.toggleClass('hidden');
+            spawn.removeClass('hidden');
+          })
+        }
 
-        // parsely form validator functionality test
+
+        // parsely form validator 
         $(function () {
           $('#psu-signup').parsley().on('field:validated', function() {
             var ok = $('.parsley-error').length === 0;
@@ -472,37 +471,25 @@
             $('.bs-callout-warning').toggleClass('hidden', ok);
           })
           .on('form:submit', function() {
-            return false; // Don't submit form for this demo
+            return true;
           });
         });
 
+        // $('#psu-signup-btn').on('click', function (){
+        // })
+          switchFormsSection($('#psu-signup-btn'), $('#user-contact'), $('#user-type'));
+          switchFormsSection($('previous-btn'), $('#user-type')), $('#user-contact');
+
+
+
        
-        // User category selection confirmation
-       $('.psu-radio').change(function () {
-        swal({
-          title: "Confirmation!",
-          text: "Are you sure you want to proceed as a "+ $(this).val()+ '?',
-          icon: "warning",
-          buttons: ['No', 'Yes'],
-        }).then((value) => {
-            if (value) {
-              swal("you selected " + $(this).val(), {
-                icon: "success",
-              });
-            } else {
-              swal({
-                text:"Please select a category to continue"});
-              // swal("Please select a category to continue");
-              // unselects the selected option by choosing a psuedo option
-              $('.psuedo-option').trigger('click');
-            }
-          });
+     
 
-       })
+      //  PARSLEY CUSTOM ERROR MESSAGE
+       $("#psu-terms").parsley({ errorMessage: "You must accept our terms and conditions" });
 
 
-
-
+       //function calls
         closeFormPopup(formOverlay);
         openFormPopup(getStartedButton);
         switchForms(signupLink, signupForm);
@@ -553,8 +540,8 @@
               <div class="psu-form-wrap">
                 <div class="psu-form-overlay"></div>
                 <!-- sign up form -->
-                <form class="psu-form open" id="psu-signup" data-form-type="signup">
-                  <!-- <div class="form-section">
+                <form data-parsley-validate="" class="psu-form open" id="psu-signup" data-form-type="signup" method="POST" action="#">
+                  <div class="form-section form-section-signup" id="user-contact">
                     <div class="psu-form-heading">
                       <h2>
                         Sign Up To Get Started
@@ -563,27 +550,57 @@
                     </div>
                     <div class="form-group">
                       <label for="psu-email">Email address</label>
-                      <input required type="email" class="form-control input-lg" id="psu-email" placeholder="Email">
+                      <input 
+                        required 
+                        data-parsley-required-message="This field is required"
+                        data-parsley-trigger="change" 
+                        data-parsley-type-message="Must be a valid email address" 
+                        type="email" class="form-control input-lg" 
+                        id="psu-email">
                     </div>
                     <div class="form-group">
                       <label for="psu-password">Password</label>
-                      <input required type="password" class="form-control input-lg" id="psu-password">
+                      <input 
+                        required 
+                        type="password" 
+                        data-parsley-required-message="This field is required"
+                        data-parsley-trigger="focusout" 
+                        class="form-control input-lg" 
+                        id="psu-password">
                     </div>
                     <div class="form-group">
                       <label for="psu-confirmpassword">Confirm Password</label>
-                      <input required type="password" class="form-control input-lg" id="psu-confirmpassword" >
+                      <input 
+                        required 
+                        data-parsley-required-message="This field is required"
+                        data-parsley-trigger="focusout"  
+                        data-parsley-equalto-message="Passwords do not match" 
+                        data-parsley-equalto="#psu-password" 
+                        type="password" 
+                        class="form-control input-lg" 
+                        id="psu-confirmpassword" >
                     </div>
                     <div class="form-group">
                       <label  class="psu-form-checkbox-label">
-                        <input required class="psu-form-checkbox" name="terms" type="checkbox"> I have read and accept the <a href="#">terms and conditions</a> 
+                        <input 
+                          required 
+                          class="psu-form-checkbox" 
+                          id="psu-terms" 
+                          name="terms" 
+                          type="checkbox"
+
+                        > 
+                        I have read and accept the <a href="#">terms and conditions</a> 
                       </label> 
                     </div>
-                  </div> -->
+                  </div>
 
 
-                  <div class="form-section user-type">
+                  <div class="form-section form-section-signup user-type hidden" id="user-type">
                       <div class="row">
                         <div class="col-xs-12">
+                          <span class="previous-btn" id="previous-btn">&larr;back</span>
+
                           <h2>Choose your category</h2>
                         </div>
                       </div>
@@ -595,7 +612,13 @@
                             </div>
 
                             <div class="psu-radio-wrap">
-                              <input id="psu-radio-1" type="radio" class="psu-radio" name="choice" value="student" required>
+                              <input
+                                id="psu-radio-1" 
+                                type="radio" 
+                                class="psu-radio" 
+                                name="choice" 
+                                value="student" 
+                                required>
                               <span class="psu-radio-check"></span>
                               <label for="psu-radio-1" class="psu-radio-text">Student</label>
                             </div>
@@ -608,24 +631,28 @@
                               <img src="https://www.iconfinder.com/data/icons/managers-15/430/Untitled-34-512.png" alt="">
                             </div>
                             <div class="psu-radio-wrap">
-                              <input id="psu-radio-2" type="radio" class="psu-radio" name="choice" value="tutor">
+                              <input 
+                                id="psu-radio-2" 
+                                type="radio" 
+                                class="psu-radio" 
+                                name="choice" 
+                                value="tutor">
                               <span class="psu-radio-check"></span>
                               <label for="psu-radio-2" class="psu-radio-text">Tutor</label>
                             </div>
-
                           </div>
                         </div>
                       </div>
                   </div>
                    
         
-                  <!-- <button type="submit" class="btn psu-form-btn">Sign Up</button> -->
+                  <button type="submit" class="btn psu-form-btn" id="psu-signup-btn">Sign Up</button>
                   
-
                 </form>
+
   
                 <!-- login form -->
-                <form class="psu-form" id="psu-login" data-parsley-validate data-form-type="login">
+                <form class="psu-form" id="psu-login" data-form-type="login">
                   <div class="psu-form-heading">
                     <h2>Login</h2>
                     <span>Not a member? <a class="psu-signup-link" href="#">Sign Up</a></span>
@@ -660,7 +687,7 @@
                     <input type="email" class="form-control input-lg" id="psu-email" placeholder="Email">
                   </div>
               
-                  <button type="submit" class="btn psu-form-btn">Send Password Reset Link</button>
+                  <button type="button" class="btn psu-form-btn">Send Password Reset Link</button>
                 </form>
               </div>
             </div>
