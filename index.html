@@ -394,8 +394,10 @@
       font-weight: 500;
       color: rgba(0, 0, 0, 0.7);
       position: relative;
-      display: inline-block;
+      flex-direction: column;
+      align-items: center;
       cursor: pointer;
+      display: flex;
     }
     span#previous-btn {
       font-size: 30px;
@@ -501,6 +503,23 @@
           })
         }
         
+        function sectionTabSwitch (trigger, arr) {
+         $(trigger).click(function(){
+             $(arr).each(function(index, element){
+                $(element).next().removeClass('hidden');
+             });
+             $(this).next().addClass('hidden');
+             function hideMe () {
+               $('#user-type').addClass('hidden');
+             }
+             function showOther () {
+               $('#user-contact').removeClass('hidden');
+             }
+             hideMe();
+             showOther();
+     
+         });
+     }
 
 
         // parsely form validator 
@@ -518,8 +537,8 @@
         // $('#psu-signup-btn').on('click', function (){
         // })
           switchFormsSection($('#psu-signup-btn'), $('#user-contact'), $('#user-type'));
-          previousFormsSection($('.cta-btn'), $('#user-type')), $('#user-contact');
-
+          // previousFormsSection($('.cta-btn'), $('#user-type')), $('#user-contact');
+          sectionTabSwitch($('.cta-btn'), $('.form-section'));
 
       // User category selection confirmation
       $('.psu-radio').change(function () {

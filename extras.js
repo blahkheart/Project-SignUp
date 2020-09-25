@@ -26,5 +26,41 @@ function switchFormsSection (trigger, formId, spawn) {
           $('.psuedo-option').trigger('click');
         }
       });
+    })
 
-   })
+    // CONFIRM TRANSACTION 
+   function confirmTransaction (e) {
+    var checker = e.preventDefault();
+    $(this).bind(checker);
+       swal({
+           title:"Confirmation!",
+           text: "Are you sure you want to proceed with this transaction",
+           buttons: true,
+           dangerMode: true,
+       })
+       .then((value) => {
+         if(value === true) {
+           $(this).unbind(checker);
+           $(this).submit();
+           swal({
+               title: "Information!",
+               text: "Your request has been submitted and is being processed",
+               icon: "success",
+           })
+           // $(this).unbind(checker);
+         } else {
+           swal("Aborted!!", "Your request was not submitted");
+         }
+       }
+     )}
+
+     // dashboard Farmlist tabs ruler switching
+     function sectionTabSwitch (trigger, arr) {
+         $(trigger).click(function(){
+             $(arr).each(function(index, element){
+                $(element).next().removeClass('hidden');
+             });
+     
+             $(this).next().addClass('hidden');
+         });
+     }
