@@ -174,7 +174,9 @@
         z-index: -2;
         display: block;
         background-image: url('https://images.unsplash.com/photo-1599413722590-6d5f382480db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
-
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
 
       /* Jumbotron */
@@ -187,10 +189,16 @@
         margin-top: 60px;
         margin-bottom: 15px;
         font-size: 36px;
+        animation-name: moveInLeft;
+        animation-duration: .9s;
+        animation-timing-function: ease-out;
       }
       .psu-jumbotron .psu-jumbotron-subheading {
         margin-bottom: 60px;
         font-size: 22px;
+        animation-name: moveInRight;
+        animation-duration: .9s;
+        animation-timing-function: ease-out;
       }
       .psu-jumbotron .psu-btn:not(:last-of-type){
         margin-right: 50px;
@@ -328,11 +336,9 @@
 
       /* CUSTOM RADIO */
     .psu-radio-wrap{
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        /* width: 40px;
-        height: 40px; */
+      position: relative;
+      display: inline-flex;
+      align-items: center;
     }
     .psu-radio {
         display: inline-block;
@@ -344,16 +350,16 @@
         cursor: pointer;
     }
     .psu-radio + .psu-radio-check {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        top: 0;
-        left: 0;
-        opacity: 1;
-        position: relative;
-        border-radius: 50%;
-        transition: all .25s .05s ease-in;
-        border: 3px solid #C4C4C4;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      top: 0;
+      left: 0;
+      opacity: 1;
+      position: relative;
+      border-radius: 50%;
+      transition: all .25s .05s ease-in;
+      border: 3px solid #C4C4C4;
     }
     .psu-radio + .psu-radio-check::after {
       content: " ";
@@ -396,7 +402,6 @@
       position: relative;
       flex-direction: column;
       align-items: center;
-      cursor: pointer;
       display: flex;
     }
     span#previous-btn {
@@ -415,22 +420,18 @@
       color: rgba(0, 0, 0, 0.7);
       transition: all .2s ease;
     }
-    a.cta-btn:hover{
-      transform: scale(1.2);
-    }
-    a.cta-btn:visited {
-      transform: scale(1);
-    }
+
     .form-cta-wrap {
       font-size: 13px;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 0.7);
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    font-family: montserrat;
-    top: -18px;
-    right: -307px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.7);
+      position: relative;
+      display: block;
+      cursor: pointer;
+      font-family: montserrat;
+      top: -18px;
+      right: 0;
+      text-align: right;
     }
     .content-wrap .image-wrap {
       max-width: 150px;
@@ -440,6 +441,13 @@
       width: 100%;
       margin-bottom: 40px;
     }
+    .alert.alert-info.psu-form-alert{
+      font-weight: 500;
+    }
+
+    .alert.alert-info.psu-form-alert.tutor{
+      color: brown;
+    }
 
 
     /* PARSLEY ERROR MESSAGE STYLING */
@@ -448,6 +456,34 @@
       margin-top: 7px;
       font-size: 12px;
       font-weight: 500;
+    }
+
+    /* ANIMATIONS */
+    @keyframes moveInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+      80% {
+        transform: translateX(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(0);
+      }
+    }
+    @keyframes moveInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      80% {
+        transform: translateX(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(0);
+      }
     }
 
 
@@ -468,18 +504,6 @@
           forgotPasswordLink = $('.psu-forgot-password-link');
 
         //functions
-        function closeFormPopup (trigger) {
-          trigger.on('click', function () {
-            formContainer.removeClass('open');
-          })
-        }
-
-        function openFormPopup (trigger) {
-          trigger.on('click', function () {
-            formContainer.addClass('open');
-          })
-        }
-
         function switchForms (trigger, formId) {
           trigger.on('click', function () {
             $('.psu-form').removeClass('open');
@@ -494,84 +518,53 @@
             spawn.removeClass('hidden');
           })
         }
-
-        function previousFormsSection (trigger, currentSectionId, targetSectionId) {
-          trigger.on('click', function () {
-            trigger.toggleClass('hidden');
-            currentSectionId.addClass('hidden');
-            targetSectionId.removeClass('hidden');
-          })
-        }
         
         function sectionTabSwitch (trigger, arr) {
-         $(trigger).click(function(){
-             $(arr).each(function(index, element){
-                $(element).next().removeClass('hidden');
-             });
-             $(this).next().addClass('hidden');
-             function hideMe () {
-               $('#user-type').addClass('hidden');
-             }
-             function showOther () {
-               $('#user-contact').removeClass('hidden');
-             }
-             hideMe();
-             showOther();
-     
-         });
-     }
-
-
+          $(trigger).click(function(){
+            $(arr).each(function(index, element){
+              $(element).next().removeClass('hidden');
+            });
+            $(this).next().addClass('hidden');
+            function hideMe () {
+              $('#user-type').addClass('hidden');
+            }
+            function showOther () {
+              $('#user-contact').removeClass('hidden');
+            }
+            hideMe();
+            showOther();
+          });
+        }
+        
         // parsely form validator 
-        $(function () {
-          $('#psu-signup').parsley().on('field:validated', function() {
-            var ok = $('.parsley-error').length === 0;
-            $('.bs-callout-info').toggleClass('hidden', !ok);
-            $('.bs-callout-warning').toggleClass('hidden', ok);
-          })
-          .on('form:submit', function() {
-            return true;
+        $('#psu-signup-btn').click(function() {
+          signupForm.parsley().whenValidate({
+            group: 'first'}).done(function() {
+              $('#user-contact').addClass('hidden');
+              $('#user-type').removeClass('hidden');
+              $('#psu-signup-btn').addClass('hidden');
           });
         });
 
-        // $('#psu-signup-btn').on('click', function (){
-        // })
-          switchFormsSection($('#psu-signup-btn'), $('#user-contact'), $('#user-type'));
-          // previousFormsSection($('.cta-btn'), $('#user-type')), $('#user-contact');
-          sectionTabSwitch($('.cta-btn'), $('.form-section'));
+        sectionTabSwitch($('.cta-btn'), $('.form-section'));
 
-      // User category selection confirmation
+
+      // User category selection confirmation alert msg
       $('.psu-radio').change(function () {
-          swal({
-            title: "Confirmation!",
-            text: "Are you sure you want to proceed as a "+ $(this).val()+ '?',
-            icon: "warning",
-            buttons: ['No', 'Yes'],
-          }).then((value) => {
-              if (value) {
-                swal("Successful " + $(this).val() + " Sign Up!", {
-                  icon: "success",
-                });
-              } else {
-                swal({
-                  text:"Please select a category to continue"});
-                // swal("Please select a category to continue");
-                // unselects the selected option by choosing a psuedo option
-                $('.psuedo-option').trigger('click');
-              }
-            });
+        var alertMsg = $('.psu-form-alert');
 
-        })
-       
-     
+        if($(this).val()) {
+          alertMsg.removeClass('hidden');
+          alertMsg.text('lorem ipsum dolor sit '+ $(this).val());
+        }
+      })
 
       //  PARSLEY CUSTOM ERROR MESSAGE
        $("#psu-terms").parsley({ errorMessage: "You must accept our terms and conditions" });
 
 
        //function calls
-        closeFormPopup(formOverlay);
-        openFormPopup(getStartedButton);
+
         switchForms(signupLink, signupForm);
         switchForms(forgotPasswordLink, forgotPasswordForm);
         switchForms(loginLink, loginForm);
@@ -609,11 +602,11 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-12 col-md-6">
-              <h1 class="psu-jumbotron-heading">Learn a skill the fun way</h1>
-              <p class="psu-jumbotron-subheading">Do it at your own pace...</p>
+              <h1 class="psu-jumbotron-heading">Lorem ipsum dolor sit amet consectetur.</h1>
+              <p class="psu-jumbotron-subheading">Lorem ipsum dolor sit.</p>
               <div class="psu-jumbotron-action">
-                <a class="btn btn-lg psu-btn" href="#" role="button">Learn more</a>
-                <a class="btn btn-lg psu-btn" href="#" role="button">View Content</a>
+                <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
+                <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
               </div>
             </div>
             <div class="col-sm-12 col-md-6">
@@ -632,6 +625,7 @@
                       <label for="psu-email">Email address</label>
                       <input 
                         required 
+                        data-parsley-group="first"
                         data-parsley-required-message="This field is required"
                         data-parsley-trigger="change" 
                         data-parsley-type-message="Must be a valid email address" 
@@ -642,6 +636,7 @@
                       <label for="psu-password">Password</label>
                       <input 
                         required 
+                        data-parsley-group="first"
                         type="password" 
                         data-parsley-required-message="This field is required"
                         data-parsley-trigger="focusout" 
@@ -652,6 +647,7 @@
                       <label for="psu-confirmpassword">Confirm Password</label>
                       <input 
                         required 
+                        data-parsley-group="first"
                         data-parsley-required-message="This field is required"
                         data-parsley-trigger="focusout"  
                         data-parsley-equalto-message="Passwords do not match" 
@@ -664,6 +660,7 @@
                       <label  class="psu-form-checkbox-label">
                         <input 
                           required 
+                          data-parsley-group="first"
                           class="psu-form-checkbox" 
                           id="psu-terms" 
                           name="terms" 
@@ -677,62 +674,62 @@
 
 
                   <div class="form-section form-section-signup user-type hidden" id="user-type">
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <div class="form-cta-wrap">
-                            <a href="#" class="cta-btn">
-                              <span class="previous-btn" id="previous-btn">&larr;</span>back
-                            </a>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="form-cta-wrap">
+                          <a href="#" class="cta-btn">
+                            <span class="previous-btn" id="previous-btn">&larr;</span>back
+                          </a>
+                        </div>
 
+                        <h2>Choose your category</h2>
+                        <div class="alert alert-info psu-form-alert hidden" role="alert">Lorem ipsum dolor sit.</div>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <div class="content-wrap">
+                          <div class="image-wrap">
+                            <img src="https://library.kissclipart.com/20180918/xue/kissclipart-user-icon-student-clipart-computer-icons-student-u-547c908867a5f248.png" alt="">
                           </div>
 
-
-                          <h2>Choose your category</h2>
+                          <div class="psu-radio-wrap">
+                            <input
+                              id="psu-radio-1" 
+                              type="radio" 
+                              class="psu-radio" 
+                              name="choice" 
+                              value="student" 
+                              >
+                            <span class="psu-radio-check"></span>
+                            <label for="psu-radio-1" class="psu-radio-text">Student</label>
+                          </div>
+                          <input type="radio" name="choice" class="hidden psuedo-option">
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-xs-6">
-                          <div class="content-wrap">
-                            <div class="image-wrap">
-                              <img src="https://library.kissclipart.com/20180918/xue/kissclipart-user-icon-student-clipart-computer-icons-student-u-547c908867a5f248.png" alt="">
-                            </div>
-
-                            <div class="psu-radio-wrap">
-                              <input
-                                id="psu-radio-1" 
-                                type="radio" 
-                                class="psu-radio" 
-                                name="choice" 
-                                value="student" 
-                                >
-                              <span class="psu-radio-check"></span>
-                              <label for="psu-radio-1" class="psu-radio-text">Student</label>
-                            </div>
-                            <input type="radio" name="choice" class="hidden psuedo-option">
+                      <div class="col-xs-6">
+                        <div class="content-wrap">
+                          <div class="image-wrap">
+                            <img src="https://www.iconfinder.com/data/icons/managers-15/430/Untitled-34-512.png" alt="">
                           </div>
-                        </div>
-                        <div class="col-xs-6">
-                          <div class="content-wrap">
-                            <div class="image-wrap">
-                              <img src="https://www.iconfinder.com/data/icons/managers-15/430/Untitled-34-512.png" alt="">
-                            </div>
-                            <div class="psu-radio-wrap">
-                              <input 
-                                id="psu-radio-2" 
-                                type="radio" 
-                                class="psu-radio" 
-                                name="choice" 
-                                value="tutor">
-                              <span class="psu-radio-check"></span>
-                              <label for="psu-radio-2" class="psu-radio-text">Tutor</label>
-                            </div>
+                          <div class="psu-radio-wrap">
+                            <input 
+                              id="psu-radio-2" 
+                              type="radio" 
+                              class="psu-radio" 
+                              name="choice" 
+                              value="tutor">
+                            <span class="psu-radio-check"></span>
+                            <label for="psu-radio-2" class="psu-radio-text">Tutor</label>
                           </div>
                         </div>
                       </div>
+                    </div>
                   </div>
                    
         
-                  <button type="submit" class="btn psu-form-btn" id="psu-signup-btn">Sign Up</button>
+                  <button type="button" class="btn psu-form-btn" id="psu-signup-btn">Sign Up</button>
                   
                 </form>
 
@@ -781,82 +778,5 @@
         </div>
       </div>
     </div>
-    <!-- <main class="psu-maincontent-wrap">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="psu-form-wrap">
-              <div class="psu-form-overlay"></div>
-              sign up form
-              <form class="psu-form open" id="psu-signup" data-form-type="signup">
-                <div class="psu-form-heading">
-                  <h2>Get on board! Sign Up here</h2>
-                  <span>Already a member? <a class="psu-login-link" href="#">Login</a></span>
-                </div>
-                <div class="form-group">
-                  <label for="psu-email">Email address</label>
-                  <input type="email" class="form-control input-lg" id="psu-email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                  <label for="psu-password">Password</label>
-                  <input type="password" class="form-control input-lg" id="psu-password">
-                </div>
-                <div class="form-group">
-                  <label for="psu-confirmpassword">Confirm Password</label>
-                  <input type="password" class="form-control input-lg" id="psu-confirmpassword" >
-                </div>
-                <div class="form-group">
-                  <label  class="psu-form-checkbox-label">
-                    <input class="psu-form-checkbox" type="checkbox"> I have read and accept the <a href="#">terms and conditions</a> 
-                  </label> 
-                </div>
-                <button type="submit" class="btn psu-form-btn">Sign Up</button>
-              </form>
-
-              login form
-              <form class="psu-form" id="psu-login" data-form-type="login">
-                <div class="psu-form-heading">
-                  <h2>Login</h2>
-                  <span>Not a member? <a class="psu-signup-link" href="#">Sign Up</a></span>
-                </div>
-                <div class="form-group">
-                  <label for="psu-email">Email address</label>
-                  <input type="email" class="form-control input-lg" id="psu-email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                  <label for="psu-password">Password</label>
-                  <input type="password" class="form-control input-lg" id="psu-password">
-                </div>
-
-                <div class="form-group">
-                  <label  class="psu-form-checkbox-label">
-                    <input class="psu-form-checkbox" type="checkbox">Remember me 
-                  </label> 
-                </div>
-            
-                <button type="submit" class="btn psu-form-btn">Login</button>
-                <p class="psu-forgot-password"><a class="psu-forgot-password-link" href="#">Forgot your password?</a></p>
-              </form>
-
-              forgot password
-              <form class="psu-form" id="psu-forgot-password" data-form-type="resetpassword">
-                <div class="psu-form-heading">
-                  <h2>Reset your password</h2>
-                  <span>Already Registered? <a class="psu-login-link" href="#">Login</a></span>
-                </div>
-                <div class="form-group">
-                  <label for="psu-email">Email address</label>
-                  <input type="email" class="form-control input-lg" id="psu-email" placeholder="Email">
-                </div>
-            
-                <button type="submit" class="btn psu-form-btn">Send Password Reset Link</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-     
-    </main> -->
-  
 </body>
 </html>

@@ -1,8 +1,8 @@
 function switchFormsSection (trigger, formId, spawn) {
     trigger.on('click', function () {
-        trigger.toggleClass('hidden');
-        formId.toggleClass('hidden');
-        spawn.removeClass('hidden');
+      trigger.toggleClass('hidden');
+      formId.toggleClass('hidden');
+      spawn.removeClass('hidden');
     })
 }
   
@@ -21,8 +21,6 @@ function switchFormsSection (trigger, formId, spawn) {
         } else {
           swal({
             text:"Please select a category to continue"});
-          // swal("Please select a category to continue");
-          // unselects the selected option by choosing a psuedo option
           $('.psuedo-option').trigger('click');
         }
       });
@@ -64,3 +62,14 @@ function switchFormsSection (trigger, formId, spawn) {
              $(this).next().addClass('hidden');
          });
      }
+        
+    // $(function () {
+    //   $('#psu-signup').parsley().on('field:validated', function() {
+    //     var ok = $('.parsley-error').length === 0;
+    //     $('.bs-callout-info').toggleClass('hidden', !ok);
+    //     $('.bs-callout-warning').toggleClass('hidden', ok);
+    //   })
+    //   .on('form:submit', function() {
+    //     return true;
+    //   });
+    // });
