@@ -47,7 +47,6 @@
         .psu-h-100 {
           height: 100%;
         }
-        
         .psu-btn {
           display: inline-block;
           padding: 12px 20px;
@@ -62,7 +61,6 @@
           color: #fff;
           border: 2px solid #01aae4;
         }
-        
         .psu-btn:hover{
           background: #fff;
           color: #000;
@@ -185,20 +183,28 @@
         min-height: 100vh;
         height: 100%;
       }
+      .psu-jumbotron .col-sm-12.col-md-6:first-of-type{
+        transition: all .25s ease-out;
+      }
+      .col-sm-12.col-md-6.remove-content {
+        position: absolute;
+        z-index: -1;
+        transform: scale(.5);
+        visibility: hidden;
+      }
+      .psu-jumbotron-content-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .psu-jumbotron .psu-jumbotron-heading{
         margin-top: 60px;
         margin-bottom: 15px;
         font-size: 36px;
-        animation-name: moveInLeft;
-        animation-duration: .9s;
-        animation-timing-function: ease-out;
       }
       .psu-jumbotron .psu-jumbotron-subheading {
         margin-bottom: 60px;
         font-size: 22px;
-        animation-name: moveInRight;
-        animation-duration: .9s;
-        animation-timing-function: ease-out;
       }
       .psu-jumbotron .psu-btn:not(:last-of-type){
         margin-right: 50px;
@@ -216,7 +222,7 @@
         align-items: center;
       }
       .psu-form{
-        padding: 40px 40px 60px;
+        padding: 50px 40px 60px;
         max-width: 500px;
         width: 100%;
         background-color: rgba(255,255,255,.8);
@@ -225,6 +231,11 @@
         visibility: hidden;
         opacity: 0;
         display: none;
+        transition: all .25s ease-in;
+        animation-name: moveInRight;
+        animation-duration: .95s;
+        animation-timing-function: ease-out;
+
       }
       .psu-form-heading{
         text-align: center;
@@ -277,6 +288,10 @@
         border: 2px solid transparent;
         margin-top: 10px;
       }
+      .psu-form-btn.hide-btn{
+        visibility: hidden;
+        opacity: 0;
+      }
       .psu-form-btn:hover{
         color: #fff;
         background: #047ba3;
@@ -304,7 +319,7 @@
 
       .psu-forgot-password{
         margin-top: 20px;
-        font-size: 12px;
+        font-size: 15px;
         line-height: 14px;
         font-weight: 500;
       }
@@ -327,18 +342,19 @@
         opacity: 1;
       }
 
-      /* switch forms */
+      /* switching forms 'open' class*/
       .psu-form.open{
         visibility: visible;
         opacity: 1;
         display: inline-block;
+        position: relative;
       }
 
       /* CUSTOM RADIO */
     .psu-radio-wrap{
       position: relative;
-      display: inline-flex;
       align-items: center;
+      display: none;
     }
     .psu-radio {
         display: inline-block;
@@ -350,7 +366,6 @@
         cursor: pointer;
     }
     .psu-radio + .psu-radio-check {
-      display: inline-block;
       width: 30px;
       height: 30px;
       top: 0;
@@ -382,18 +397,29 @@
     .psu-form label.psu-radio-text{
       margin: 0 0 0 8px;
     }
+    /* CUSTOM RADIO END */
 
 
     /* USER-TYPE SELECTION FORM SEGMENT */
+
     .form-section.user-type{
-      margin-bottom: 40px;
+      position: absolute;
+      top: 50px;
+      left: 64px;
+      z-index: -1;
+      opacity: 0;
+    }
+    .form-section.user-type.show{
+      z-index: 10;
     }
     .form-section.user-type h2 {
-      margin-bottom: 35px;
+      margin-bottom: 70px;
       color: rgba(0, 0, 0, .8);
       font-size: 32px;
       text-align: center;
+      margin-top: 30px;
       text-transform: capitalize;
+      margin-right: 45px;
     }
     .content-wrap {
       font-size: 18px;
@@ -405,20 +431,18 @@
       display: flex;
     }
     span#previous-btn {
-      font-size: 30px;
-    font-weight: 700;
-    color: #000;
-    display: inline-block;
-    width: 22px;
-    line-height: 0;
-    position: absolute;
-    top: -6px;
-    right: 12px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #000;
+      display: inline-block;
+      width: 22px;
+      line-height: 0;
+      margin-right: 3px;
     }
-    a.cta-btn{
-      text-decoration: none;
+    .cta-btn{
       color: rgba(0, 0, 0, 0.7);
       transition: all .2s ease;
+      cursor: pointer;
     }
 
     .form-cta-wrap {
@@ -436,17 +460,46 @@
     .content-wrap .image-wrap {
       max-width: 150px;
       max-height: 150px;
-      overflow: hidden;
-      border-radius: 50%;
+      border-radius: 5px;
       width: 100%;
-      margin-bottom: 40px;
+      border: 1px solid rgba(0, 0, 0, .3);
+      margin-bottom: 65px;
+      padding: 3px 5px;
+      cursor: pointer;
+      transition: all .25s ease-out;
+    }
+    .content-wrap .image-wrap:first-of-type{
+      margin-right: 42px;
+    }
+    .content-wrap .image-wrap:hover {
+      transform: scale(1.3);
+      border: 1px solid rgba(0,0,0,.9);
+    }
+    .content-wrap .image-title{
+      margin-right: 37px;
+    }
+    .content-wrap .image-title label {
+      transition: all .25s ease-out;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .content-wrap .image-title label:hover{
+      color: #534846;
     }
     .alert.alert-info.psu-form-alert{
-      font-weight: 500;
+      font-weight: 700;
     }
 
-    .alert.alert-info.psu-form-alert.tutor{
-      color: brown;
+    .alert-info {
+      color: green;
+      background-color: #d9edf7;
+      position: absolute;
+      z-index: 20;
+      text-align: center;
+      width: 373px;
+      bottom: -335px;
+      left: 20px;
+      padding: 12px 20px;
     }
 
 
@@ -475,7 +528,7 @@
     @keyframes moveInRight {
       0% {
         opacity: 0;
-        transform: translateX(100px);
+        transform: translateX(200px);
       }
       80% {
         transform: translateX(-30px);
@@ -485,8 +538,6 @@
         transform: translate(0);
       }
     }
-
-
     </style>
 
     <script>
@@ -503,7 +554,10 @@
           forgotPasswordForm = $('#psu-forgot-password'),
           forgotPasswordLink = $('.psu-forgot-password-link');
 
-        //functions
+        
+        //FUNCTIONS
+
+        // switch between forms (i.e signUp, Login & Forgot password)
         function switchForms (trigger, formId) {
           trigger.on('click', function () {
             $('.psu-form').removeClass('open');
@@ -511,60 +565,62 @@
           })
         }
 
-        function switchFormsSection (trigger, formId, spawn) {
-          trigger.on('click', function () {
-            trigger.toggleClass('hidden');
-            formId.toggleClass('hidden');
-            spawn.removeClass('hidden');
-          })
+        //focus on email input on page load
+        $('#psu-email').focus();
+
+        // animated switch to signUp form's 2nd step
+        function animateFormSection () {
+          $('#psu-signup-btn').addClass('hide-btn');
+          $('#user-contact').animate(
+            {
+              visibility:'hidden', 
+              transform: 'translateX(100px)', 
+              opacity: '0'
+            }, showOtherFormSection);
+        }
+
+        //go back to signUp form's first step
+        function previousFormSection (trigger, currentFormId) {
+          trigger.click(
+            function () {
+              currentFormId.animate({opacity: '0'}, 'fast');
+              currentFormId.removeClass('show');
+              $('#user-contact').animate({opacity: '1'}, 'slow');
+              $('#psu-signup-btn').removeClass('hide-btn');
+              $('#second-column').addClass('col-md-6');
+              $('#first-column').removeClass('remove-content');
+            }
+          )
+        }
+
+        //show signUp form's 2nd step after switch
+        function showOtherFormSection () {
+          $('#user-type').animate({opacity: '1'});
+          $('#user-type').addClass('show');
         }
         
-        function sectionTabSwitch (trigger, arr) {
-          $(trigger).click(function(){
-            $(arr).each(function(index, element){
-              $(element).next().removeClass('hidden');
-            });
-            $(this).next().addClass('hidden');
-            function hideMe () {
-              $('#user-type').addClass('hidden');
-            }
-            function showOther () {
-              $('#user-contact').removeClass('hidden');
-            }
-            hideMe();
-            showOther();
-          });
-        }
-        
-        // parsely form validator 
+        // parsely: signUp form first-step validator 
         $('#psu-signup-btn').click(function() {
           signupForm.parsley().whenValidate({
-            group: 'first'}).done(function() {
-              $('#user-contact').addClass('hidden');
-              $('#user-type').removeClass('hidden');
-              $('#psu-signup-btn').addClass('hidden');
-          });
+            group: 'first'}).done(animateFormSection);
         });
 
-        sectionTabSwitch($('.cta-btn'), $('.form-section'));
 
+        // signUp confirmation alert msg
+        $('.psu-radio').change(function () {
+          var alertMsg = $('.psu-form-alert');
 
-      // User category selection confirmation alert msg
-      $('.psu-radio').change(function () {
-        var alertMsg = $('.psu-form-alert');
+          if($(this).val()) {
+            alertMsg.removeClass('hidden');
+          }
+        })
 
-        if($(this).val()) {
-          alertMsg.removeClass('hidden');
-          alertMsg.text('lorem ipsum dolor sit '+ $(this).val());
-        }
-      })
-
-      //  PARSLEY CUSTOM ERROR MESSAGE
-       $("#psu-terms").parsley({ errorMessage: "You must accept our terms and conditions" });
+        //  PARSLEY: CUSTOM ERROR MESSAGE FOR TERMS & CONDITIONS
+        $("#psu-terms").parsley({ errorMessage: "You must accept our terms and conditions" });
 
 
        //function calls
-
+        previousFormSection($('.cta-btn'), $('#user-type'));
         switchForms(signupLink, signupForm);
         switchForms(forgotPasswordLink, forgotPasswordForm);
         switchForms(loginLink, loginForm);
@@ -577,7 +633,6 @@
     <!-- main content -->
     <div class="psu-header-wrap">
       <nav class="navbar navbar-default psu-navbar">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -588,7 +643,6 @@
           <a class="navbar-brand psu-nav-brand hidden-sm" href="#home">LOGO</a>
         </div>
     
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav psu-navigation">
             <li class="active psu-nav-item"><a class="psu-nav-link" href="#">About</a></li>
@@ -596,20 +650,23 @@
             <li class="psu-nav-item"><a class="psu-nav-link psu-nav-cta" href="#">Get Started</a></li>
             <li class="psu-nav-item"><a class="psu-nav-link" href="#">Contact</a></li>
           </ul>
-        </div><!-- /.navbar-collapse -->
+        </div>
       </nav>
       <div class="psu-jumbotron">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 col-md-6">
-              <h1 class="psu-jumbotron-heading">Lorem ipsum dolor sit amet consectetur.</h1>
-              <p class="psu-jumbotron-subheading">Lorem ipsum dolor sit.</p>
-              <div class="psu-jumbotron-action">
-                <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
-                <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
+            <div id="first-column" class="col-sm-12 col-md-6">
+              <div class="psu-jumbotron-content-wrap">
+                <h1 class="psu-jumbotron-heading">Lorem ipsum dolor sit amet consectetur.</h1>
+                <p class="psu-jumbotron-subheading">Lorem ipsum dolor sit.</p>
+                <div class="psu-jumbotron-action">
+                  <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
+                  <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
+                </div>
               </div>
+
             </div>
-            <div class="col-sm-12 col-md-6">
+            <div id="second-column" class="col-sm-12 col-md-6">
               <div class="psu-form-wrap">
                 <div class="psu-form-overlay"></div>
                 <!-- sign up form -->
@@ -625,11 +682,13 @@
                       <label for="psu-email">Email address</label>
                       <input 
                         required 
+                        name="email"
                         data-parsley-group="first"
-                        data-parsley-required-message="This field is required"
+                        data-parsley-required-message="Email address is required"
                         data-parsley-trigger="change" 
                         data-parsley-type-message="Must be a valid email address" 
-                        type="email" class="form-control input-lg" 
+                        type="email" 
+                        class="form-control input-lg" 
                         id="psu-email">
                     </div>
                     <div class="form-group">
@@ -638,7 +697,10 @@
                         required 
                         data-parsley-group="first"
                         type="password" 
-                        data-parsley-required-message="This field is required"
+                        name="password"
+                        data-parsley-minlength="6"
+                        data-parsley-minlength-message="Password should be at least 6 characters long"
+                        data-parsley-required-message="Password is required"
                         data-parsley-trigger="focusout" 
                         class="form-control input-lg" 
                         id="psu-password">
@@ -647,8 +709,9 @@
                       <label for="psu-confirmpassword">Confirm Password</label>
                       <input 
                         required 
+                        name="password"
                         data-parsley-group="first"
-                        data-parsley-required-message="This field is required"
+                        data-parsley-required-message="Password is required"
                         data-parsley-trigger="focusout"  
                         data-parsley-equalto-message="Passwords do not match" 
                         data-parsley-equalto="#psu-password" 
@@ -665,35 +728,33 @@
                           id="psu-terms" 
                           name="terms" 
                           type="checkbox"
-
                         > 
                         I have read and accept the <a href="#">terms and conditions</a> 
                       </label> 
                     </div>
                   </div>
 
-
-                  <div class="form-section form-section-signup user-type hidden" id="user-type">
+                  <div class="form-section form-section-signup user-type" id="user-type">
                     <div class="row">
                       <div class="col-xs-12">
                         <div class="form-cta-wrap">
-                          <a href="#" class="cta-btn">
-                            <span class="previous-btn" id="previous-btn">&larr;</span>back
-                          </a>
+                          <div href="#psu-signup" class="cta-btn">
+                            <span class="previous-btn" id="previous-btn">&larr;</span>previous
+                          </div>
                         </div>
 
                         <h2>Choose your category</h2>
-                        <div class="alert alert-info psu-form-alert hidden" role="alert">Lorem ipsum dolor sit.</div>
-
+                        
+                        <div class="alert alert-info psu-form-alert hidden" role="alert">Sign Up Successful!</div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-xs-6">
                         <div class="content-wrap">
-                          <div class="image-wrap">
-                            <img src="https://library.kissclipart.com/20180918/xue/kissclipart-user-icon-student-clipart-computer-icons-student-u-547c908867a5f248.png" alt="">
+                          <div id="student-btn" title="testing tooltip.." class="image-wrap">
+                            <img src="https://library.kissclipart.com/20180918/xue/kissclipart-user-icon-student-clipart-computer-icons-student-u-547c908867a5f248.png" alt="Student">
                           </div>
-
+                          <p class="image-title"><label for="psu-radio-1">Student</label></p>
                           <div class="psu-radio-wrap">
                             <input
                               id="psu-radio-1" 
@@ -705,14 +766,16 @@
                             <span class="psu-radio-check"></span>
                             <label for="psu-radio-1" class="psu-radio-text">Student</label>
                           </div>
-                          <input type="radio" name="choice" class="hidden psuedo-option">
                         </div>
                       </div>
                       <div class="col-xs-6">
                         <div class="content-wrap">
-                          <div class="image-wrap">
-                            <img src="https://www.iconfinder.com/data/icons/managers-15/430/Untitled-34-512.png" alt="">
+                          <div id="tutor-btn" class="image-wrap">
+                            <img src="https://www.iconfinder.com/data/icons/company-business-people-1/32/busibess_people-50-512.png" alt="Tutor">
+                            <!-- <img src="https://www.iconfinder.com/data/icons/managers-15/430/Untitled-34-512.png" alt="Tutor"> -->
                           </div>
+                          <p class="image-title"><label for="psu-radio-2">Tutor</label></p>
+
                           <div class="psu-radio-wrap">
                             <input 
                               id="psu-radio-2" 
@@ -727,50 +790,70 @@
                       </div>
                     </div>
                   </div>
-                   
         
                   <button type="button" class="btn psu-form-btn" id="psu-signup-btn">Sign Up</button>
-                  
                 </form>
-
   
                 <!-- login form -->
-                <form class="psu-form" id="psu-login" data-form-type="login">
+                <form data-parsley-validate="" class="psu-form" id="psu-login" data-form-type="login">
                   <div class="psu-form-heading">
                     <h2>Login</h2>
                     <span>Not a member? <a class="psu-signup-link" href="#">Sign Up</a></span>
                   </div>
                   <div class="form-group">
                     <label for="psu-email">Email address</label>
-                    <input type="email" name="email" class="form-control input-lg" id="psu-email" placeholder="Email">
+                    <input 
+                      type="email" 
+                      name="email" 
+                      class="form-control input-lg" 
+                      id="psu-email" 
+                      required 
+                      data-parsley-required-message="Email is required"
+                      data-parsley-trigger="change" 
+                      data-parsley-type-message="Must be a valid email address" 
+                      >
                   </div>
                   <div class="form-group">
                     <label for="psu-password">Password</label>
-                    <input type="password" name="passsword" class="form-control input-lg" id="psu-password">
+                    <input 
+                      type="password" 
+                      name="passsword" 
+                      class="form-control input-lg" 
+                      required
+                      data-parsley-required-message="Password is required"
+                      data-parsley-trigger="focusout" 
+                      id="psu-password">
                   </div>
   
                   <div class="form-group">
                     <label  class="psu-form-checkbox-label">
-                      <input class="psu-form-checkbox" name="confirmpassword" type="checkbox">Remember me 
+                      <input class="psu-form-checkbox" name="remember" type="checkbox">Remember me 
                     </label> 
                   </div>
               
-                  <button type="submit" class="btn psu-form-btn">Login</button>
+                  <button type="submit" id="psu-login-btn" class="btn psu-form-btn">Login</button>
                   <p class="psu-forgot-password"><a class="psu-forgot-password-link" href="#">Forgot your password?</a></p>
                 </form>
   
                 <!-- forgot password -->
-                <form class="psu-form" id="psu-forgot-password" data-form-type="resetpassword">
+                <form data-parsley-validate="" class="psu-form" id="psu-forgot-password" data-form-type="resetpassword">
                   <div class="psu-form-heading">
                     <h2>Reset your password</h2>
                     <span>Already Registered? <a class="psu-login-link" href="#">Login</a></span>
                   </div>
                   <div class="form-group">
                     <label for="psu-email">Email address</label>
-                    <input type="email" class="form-control input-lg" id="psu-email" placeholder="Email">
+                    <input 
+                      type="email" 
+                      class="form-control input-lg" 
+                      required 
+                      data-parsley-required-message="Email is required"
+                      data-parsley-trigger="change" 
+                      data-parsley-type-message="Must be a valid email address" 
+                      id="psu-email" >
                   </div>
               
-                  <button type="button" class="btn psu-form-btn">Send Password Reset Link</button>
+                  <button type="submit" id="psu-forgot-password-btn" class="btn psu-form-btn">Send Password Reset Link</button>
                 </form>
               </div>
             </div>
