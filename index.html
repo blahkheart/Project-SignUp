@@ -605,6 +605,13 @@
             group: 'first'}).done(animateFormSection);
         });
 
+        //trigger user category radio button when image is clicked
+        $('#student-btn').click(function (){
+          $('#psu-radio-1').trigger('click');
+        }) 
+        $('#tutor-btn').click(function (){
+          $('#psu-radio-2').trigger('click');
+        }) 
 
         // signUp confirmation alert msg
         $('.psu-radio').change(function () {
