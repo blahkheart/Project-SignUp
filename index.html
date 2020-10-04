@@ -601,8 +601,6 @@
               currentFormId.removeClass('show');
               $('#user-contact').animate({opacity: '1'}, 'slow');
               $('#psu-signup-btn').removeClass('hide-btn');
-              $('#second-column').addClass('col-md-6');
-              $('#first-column').removeClass('remove-content');
             }
           )
         }
@@ -627,34 +625,38 @@
           $('#psu-radio-2').trigger('click');
         }) 
 
-        // signUp confirmation alert msg
-        let submitStatus = 'Pending';
-        // function doSomethingFun () {
-        //   submitStatus = 'Registration is successful!';
-        //   switchForms(loginLink, loginForm);
-        // }
-        function signUpFeedback () {
-          $('.psu-form-alert').text(submitStatus);
+        // signUp success feedback
+        function resetForm () {
+          $('.psu-form-alert').addClass('hidden');
+          $('#user-type').animate({opacity: '0'}, 'fast');
+          $('#user-type').removeClass('show');
+          $('#user-contact').animate({opacity: '1'}, 'slow');
+          $('#psu-signup-btn').removeClass('hide-btn');
+          $(signupForm)[0].reset() 
+        }
+
+        function redirectToLogin () {
+          $('.psu-form').removeClass('open');
+          loginForm.addClass('open');
+          resetForm();
+        }
+
+        function signUpSuccessFeedback () {
+          $('.psu-form-alert').text('Pending');
           $('.psu-form-alert').removeClass('hidden');
+
           setTimeout(() => {
-            submitStatus = 'Registration is successful!';
-            $('.psu-form-alert').text(submitStatus);
+            $('.psu-form-alert').text('Registration is successful!');
           }, 1000);
+
+          setTimeout(redirectToLogin, 1800);
         }
 
         $('#psu-radio-2').change(function () {
-          // var alertMsg = $('.psu-form-alert'), myArr = $('.psu-radio');
-          
           signupForm.parsley().whenValidate({
-            group: 'second'}).done(signUpFeedback);
-
-          // if($(this).val()) {
-          //   alertMsg.removeClass('hidden');
-          // }
+            group: 'second'}).done(signUpSuccessFeedback);
         })
 
-
-        // let myArr = [ $('#student-btn'), $('#tutor-btn')]
 
         //  PARSLEY: CUSTOM ERROR MESSAGE FOR TERMS & CONDITIONS
         $("#psu-terms").parsley({ errorMessage: "You must accept our terms and conditions" });
@@ -729,7 +731,7 @@
                         data-parsley-type-message="Must be a valid email address" 
                         type="email" 
                         class="form-control input-lg" 
-                        id="psu-email">
+                        id="psu-email"> 
                     </div>
                     <div class="form-group">
                       <label for="psu-password">Password</label>
