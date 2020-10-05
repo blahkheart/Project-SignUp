@@ -528,24 +528,24 @@
     }
 
     /* SIGN UP ERROR */
-    div.alert.alert-info.psu-form-alert#signup-error{
+    div.alert.alert-info.psu-form-alert{
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
-    div.alert.alert-info.psu-form-alert#signup-error .img-wrap{
+    div.alert.alert-info.psu-form-alert .img-wrap{
       width: 60px;
       display: inline-block;
       margin: 10px 0 30px;
     }
-    div.alert.alert-info.psu-form-alert#signup-error h3{
+    div.alert.alert-info.psu-form-alert h3{
       font-size: 25px;
       font-weight: 700;
       margin-bottom: 10px;
       color: #000;
     }
-    div.alert.alert-info.psu-form-alert#signup-error p{
+    div.alert.alert-info.psu-form-alert p{
       font-size: 18px;
       color: rgba(0,0,0,.3);
       margin: 0 0 37px;
@@ -626,6 +626,12 @@
         //focus on email input on page load
         $('#psu-email').focus();
 
+        // parsely: signUp form first-step validator 
+        $('#psu-signup-btn').click(function() {
+          signupForm.parsley().whenValidate({
+            group: 'first'}).done(animateFormSection);
+        });
+
         // animated switch to signUp form's 2nd step
         function animateFormSection () {
           $('#psu-signup-btn').addClass('hide-btn');
@@ -635,6 +641,12 @@
               transform: 'translateX(100px)', 
               opacity: '0'
             }, showOtherFormSection);
+        }
+
+        //show signUp form's 2nd step after switch
+        function showOtherFormSection () {
+          $('#user-type').animate({opacity: '1'});
+          $('#user-type').addClass('show');
         }
 
         //go back to signUp form's first step
@@ -649,19 +661,7 @@
           )
         }
 
-        //show signUp form's 2nd step after switch
-        function showOtherFormSection () {
-          $('#user-type').animate({opacity: '1'});
-          $('#user-type').addClass('show');
-        }
-        
-        // parsely: signUp form first-step validator 
-        $('#psu-signup-btn').click(function() {
-          signupForm.parsley().whenValidate({
-            group: 'first'}).done(animateFormSection);
-        });
-
-        //trigger user category radio button when image is clicked
+        //trigger user category radio button check when image is clicked
         $('#student-btn').click(function (){
           $('#psu-radio-1').trigger('click');
         }) 
@@ -669,13 +669,15 @@
           $('#psu-radio-2').trigger('click');
         }) 
 
-        // signUp success feedback
+
+        // SIGN UP SUCCESS FEEDBACK
         function resetForm () {
           $('.psu-form-alert').addClass('hidden');
           $('#user-type').animate({opacity: '0'}, 'fast');
           $('#user-type').removeClass('show');
           $('#user-contact').animate({opacity: '1'}, 'slow');
           $('#psu-signup-btn').removeClass('hide-btn');
+          $('.alert-success-img').prop('src', 'https://previews.123rf.com/images/juliarstudio/juliarstudio1604/juliarstudio160401289/55304034-hourglass-icon-in-cartoon-style-on-a-white-background.jpg');
           $(signupForm)[0].reset() 
         }
 
@@ -686,44 +688,48 @@
         }
 
         function signUpSuccessFeedback () {
-          $('#signup-success').text('Pending');
+          $('.alert-heading').text('Sending...');
           $('#signup-success').removeClass('hidden');
 
           setTimeout(() => {
-            $('#signup-success').text('Registration is successful!');
+            $('.alert-success-img').prop('src', 'https://www.clipartkey.com/mpngs/m/283-2836740_success-icon-transparent-green-success-png-icon.png');
+            $('.alert-heading').text('Registration is successful!');
           }, 1000);
 
-          setTimeout(redirectToLogin, 1800);
+          setTimeout(redirectToLogin, 2500);
         }
 
+        //trigger psuedo form submission for tutor selection
         $('#psu-radio-2').change(function () {
           signupForm.parsley().whenValidate({
             group: 'second'}).done(signUpSuccessFeedback);
         })
 
-        //signUp error feedback
+
+        //SIGN UP ERROR FEEDBACK
         function signupErrorFeedback () {
           $('#signup-error').removeClass('hidden');
         }
 
         function closeErrorMessage () {
           $('#signup-error').addClass('hidden');
+          $('#psu-radio-1').prop("checked", false);
         }
-
-        $('#psu-radio-1').change(function () {
-          signupForm.parsley().whenValidate({
-            group: 'second'}).done(signupErrorFeedback);
-        })
 
         $('.retry-btn').click(closeErrorMessage);
 
+        //trigger psuedo form submission for student selection
+        $('#psu-radio-1').change(function () {
+          signupForm.parsley().whenValidate({
+          group: 'second'}).done(signupErrorFeedback);
+        })
        
 
         //  PARSLEY: CUSTOM ERROR MESSAGE FOR TERMS & CONDITIONS
         $("#psu-terms").parsley({ errorMessage: "You must accept our terms and conditions" });
 
 
-       //function calls
+       //FUNCTION CALLS
         previousFormSection($('.form-cta-wrap'), $('#user-type'));
         switchForms(signupLink, signupForm);
         switchForms(loginLink, loginForm);
@@ -771,7 +777,6 @@
             </div>
             <div id="second-column" class="col-sm-12 col-md-6">
               <div class="psu-form-wrap">
-                <div class="psu-form-overlay"></div>
                 <!-- sign up form -->
                 <form data-parsley-validate="" class="psu-form open" id="psu-signup" data-form-type="signup" method="POST" action="#">
                   <div class="form-section form-section-signup" id="user-contact">
@@ -847,8 +852,17 @@
                         </div>
 
                         <h2>Choose your category</h2>
+
+                        <div class="psu-form-overlay"></div>
                         
-                        <div class="alert alert-info psu-form-alert hidden" id="signup-success" role="alert">Sign Up Successful!</div>
+                        <!-- sign up status (success/error) alerts -->
+                        <div class="alert alert-info psu-form-alert hidden" id="signup-success" role="alert">
+                          <div class="img-wrap">
+                            <img class="alert-success-img" src="https://previews.123rf.com/images/juliarstudio/juliarstudio1604/juliarstudio160401289/55304034-hourglass-icon-in-cartoon-style-on-a-white-background.jpg" alt="">
+                          </div>
+                          <h3 class="alert-heading">Sign Up Successful!</h3>
+                          <p>Lorem ipsum dolor sit amet consectetur.</p> 
+                        </div>
                         <div class="alert alert-info psu-form-alert hidden" id="signup-error" role="alert">
                           <div class="img-wrap">
                             <img src="https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png" alt="">
