@@ -254,13 +254,15 @@
         margin-bottom: 30px;
         font-size: 13px;
       }
-      .psu-form-heading span a{
+      .psu-form-heading span span{
         text-decoration: none;
         color: #01AAE4;
         transition: .25s ease-in;
-
+        cursor: pointer;
+        display: inline-block;
+        margin: 0;
       }
-      .psu-form-heading span a:hover {
+      .psu-form-heading span span:hover {
         color: #0178a0;
       }
       .psu-form label{
@@ -784,7 +786,7 @@
                       <h2>
                         Sign Up To Get Started
                       </h2>
-                      <span>Already a member? <a class="psu-login-link" href="#">Login</a></span>
+                      <span>Already a member? <span class="psu-login-link">Login</span></span>
                     </div>
                     <div class="form-group">
                       <label for="psu-email">Email address</label>
@@ -925,7 +927,7 @@
                 <form data-parsley-validate="" class="psu-form" id="psu-login" data-form-type="login">
                   <div class="psu-form-heading">
                     <h2>Login</h2>
-                    <span>Not a member? <a class="psu-signup-link" href="#">Sign Up</a></span>
+                    <span>Not a member? <span class="psu-signup-link">Sign Up</span></span>
                   </div>
                   <div class="form-group">
                     <label for="psu-email">Email address</label>
