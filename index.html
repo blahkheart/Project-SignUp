@@ -505,15 +505,17 @@
     }
 
     .alert-info {
-      color: green;
-      background-color: #d9edf7;
+      background-color: #fff;
       position: absolute;
       z-index: 20;
       text-align: center;
       width: 373px;
-      bottom: -156px;
+      bottom: -250px;
       left: 15px;
-      padding: 15px 20px;
+      padding: 20px;
+      border: none;
+      box-shadow: 0px 1px 7px rgba(0,0,0,.2);
+      transition: all .25s ease-out;
     }
 
 
@@ -523,6 +525,48 @@
       margin-top: 7px;
       font-size: 12px;
       font-weight: 500;
+    }
+
+    /* SIGN UP ERROR */
+    div.alert.alert-info.psu-form-alert#signup-error{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    div.alert.alert-info.psu-form-alert#signup-error .img-wrap{
+      width: 60px;
+      display: inline-block;
+      margin: 10px 0 30px;
+    }
+    div.alert.alert-info.psu-form-alert#signup-error h3{
+      font-size: 25px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #000;
+    }
+    div.alert.alert-info.psu-form-alert#signup-error p{
+      font-size: 18px;
+      color: rgba(0,0,0,.3);
+      margin: 0 0 37px;
+    }
+      
+    div.alert.alert-info.psu-form-alert#signup-error .retry-btn {
+      border: 1px solid #D84131;
+      border-radius: 3px;
+      font-size: 14px;
+      color: #D84131;
+      font-weight: 500;
+      background: transparent;
+      padding: 10px 30px;
+      margin-bottom: 10px;
+      transition: all .3s ease-out;
+    }
+    div.alert.alert-info.psu-form-alert#signup-error .retry-btn:hover{
+      color: #c03c2d;
+    }
+    div.alert.alert-info.psu-form-alert#signup-error .retry-btn:focus {
+      outline-color: #c41a07;
     }
 
     /* ANIMATIONS */
@@ -642,11 +686,11 @@
         }
 
         function signUpSuccessFeedback () {
-          $('.psu-form-alert').text('Pending');
-          $('.psu-form-alert').removeClass('hidden');
+          $('#signup-success').text('Pending');
+          $('#signup-success').removeClass('hidden');
 
           setTimeout(() => {
-            $('.psu-form-alert').text('Registration is successful!');
+            $('#signup-success').text('Registration is successful!');
           }, 1000);
 
           setTimeout(redirectToLogin, 1800);
@@ -657,6 +701,23 @@
             group: 'second'}).done(signUpSuccessFeedback);
         })
 
+        //signUp error feedback
+        function signupErrorFeedback () {
+          $('#signup-error').removeClass('hidden');
+        }
+
+        function closeErrorMessage () {
+          $('#signup-error').addClass('hidden');
+        }
+
+        $('#psu-radio-1').change(function () {
+          signupForm.parsley().whenValidate({
+            group: 'second'}).done(signupErrorFeedback);
+        })
+
+        $('.retry-btn').click(closeErrorMessage);
+
+       
 
         //  PARSLEY: CUSTOM ERROR MESSAGE FOR TERMS & CONDITIONS
         $("#psu-terms").parsley({ errorMessage: "You must accept our terms and conditions" });
@@ -787,7 +848,15 @@
 
                         <h2>Choose your category</h2>
                         
-                        <div class="alert alert-info psu-form-alert hidden" role="alert">Sign Up Successful!</div>
+                        <div class="alert alert-info psu-form-alert hidden" id="signup-success" role="alert">Sign Up Successful!</div>
+                        <div class="alert alert-info psu-form-alert hidden" id="signup-error" role="alert">
+                          <div class="img-wrap">
+                            <img src="https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png" alt="">
+                          </div>
+                          <h3>Uh Oh!</h3>
+                          <p>Looks like something went wrong</p> 
+                          <button type="button" class="retry-btn">Try again</button>
+                        </div>
                       </div>
                     </div>
                     <div class="row">
