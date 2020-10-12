@@ -12,7 +12,7 @@
     <script src="https://parsleyjs.org/dist/parsley.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://parsleyjs.org/src/parsley.css">
-   <style>
+    <style>
       /*CSS RESET*/
         *,
         *::before,
@@ -524,6 +524,61 @@
     }
 
 
+    /* PARSLEY ERROR MESSAGE STYLING */
+    li.parsley-required, .parsley-errors-list.filled .parsley-type, ul.parsley-errors-list.filled li{
+      color: red;
+      margin-top: 7px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 15px;
+    }
+
+    /* SIGN UP ERROR */
+    div.alert.alert-info.psu-form-alert{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    div.alert.alert-info.psu-form-alert .img-wrap{
+      width: 60px;
+      display: inline-block;
+      margin: 10px 0 30px;
+    }
+    div.alert.alert-info.psu-form-alert h3{
+      font-size: 25px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #000;
+    }
+    div.alert.alert-info.psu-form-alert h3.success{
+      color: #008000;
+    }
+    div.alert.alert-info.psu-form-alert p{
+      font-size: 18px;
+      color: rgba(0,0,0,.3);
+      margin: 0 0 37px;
+    }
+      
+    div.alert.alert-info.psu-form-alert#signup-error .retry-btn {
+      border: 1px solid #D84131;
+      border-radius: 3px;
+      font-size: 14px;
+      color: #D84131;
+      font-weight: 500;
+      background: transparent;
+      padding: 10px 30px;
+      margin-bottom: 10px;
+      transition: all .3s ease-out;
+    }
+    div.alert.alert-info.psu-form-alert#signup-error .retry-btn:hover{
+      color: #c03c2d;
+    }
+    div.alert.alert-info.psu-form-alert#signup-error .retry-btn:focus {
+      outline-color: #c41a07;
+    }
+
+
     /* FORM MEDIA QUERIES */
     @media screen and (max-width:425px) {
       .psu-form {
@@ -590,76 +645,19 @@
       .alert-info {
         width: 360px;
       }
+      .content-wrap .image-wrap:hover {
+        transform: scale(1.15);
+      }
     }
-
-    /* PARSLEY ERROR MESSAGE STYLING */
-    li.parsley-required, .parsley-errors-list.filled .parsley-type, ul.parsley-errors-list.filled li{
-      color: red;
-      margin-top: 7px;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 15px;
-    }
-
-    /* SIGN UP ERROR */
-    div.alert.alert-info.psu-form-alert{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    div.alert.alert-info.psu-form-alert .img-wrap{
-      width: 60px;
-      display: inline-block;
-      margin: 10px 0 30px;
-    }
-    div.alert.alert-info.psu-form-alert h3{
-      font-size: 25px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #000;
-    }
-    div.alert.alert-info.psu-form-alert h3.success{
-      color: #008000;
-    }
-    div.alert.alert-info.psu-form-alert p{
-      font-size: 18px;
-      color: rgba(0,0,0,.3);
-      margin: 0 0 37px;
-    }
-      
-    div.alert.alert-info.psu-form-alert#signup-error .retry-btn {
-      border: 1px solid #D84131;
-      border-radius: 3px;
-      font-size: 14px;
-      color: #D84131;
-      font-weight: 500;
-      background: transparent;
-      padding: 10px 30px;
-      margin-bottom: 10px;
-      transition: all .3s ease-out;
-    }
-    div.alert.alert-info.psu-form-alert#signup-error .retry-btn:hover{
-      color: #c03c2d;
-    }
-    div.alert.alert-info.psu-form-alert#signup-error .retry-btn:focus {
-      outline-color: #c41a07;
-    }
-
     </style>
-
     <script>
       $('document').ready(function(){
 
       // variables
-      let formContainer = $('.psu-form-wrap'),
-          getStartedButton = $('.psu-nav-cta'),
-          signupForm = $('#psu-signup'),
+      let signupForm = $('#psu-signup'),
           signupLink = $('.psu-signup-link'),
           loginForm = $('#psu-login'),
-          loginLink = $('.psu-login-link'),
-          forgotPasswordForm = $('#psu-forgot-password'),
-          forgotPasswordLink = $('.psu-forgot-password-link');
+          loginLink = $('.psu-login-link');
 
         
         //FUNCTIONS
@@ -792,239 +790,237 @@
     </script>
 </head>
 <body>
- 
-
-    <!-- main content -->
-    <div class="psu-header-wrap">
-      <nav class="navbar navbar-default psu-navbar">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand psu-nav-brand hidden-sm" href="#home">LOGO</a>
-        </div>
-    
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav psu-navigation">
-            <li class="active psu-nav-item"><a class="psu-nav-link" href="#">About</a></li>
-            <li class="psu-nav-item psu-mx-auto hidden-xs"><a class="psu-nav-brand" href="#home">LOGO</a></li>
-            <li class="psu-nav-item"><a class="psu-nav-link psu-nav-cta" href="#">Get Started</a></li>
-            <li class="psu-nav-item"><a class="psu-nav-link" href="#">Contact</a></li>
-          </ul>
-        </div>
-      </nav>
-      <div class="psu-jumbotron">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12 col-md-6">
-              <div class="psu-jumbotron-content-wrap">
-                <h1 class="psu-jumbotron-heading">Lorem ipsum dolor sit amet consectetur.</h1>
-                <p class="psu-jumbotron-subheading">Lorem ipsum dolor sit.</p>
-                <div class="psu-jumbotron-action">
-                  <a class="btn btn-lg psu-btn psu-mb-3" href="#" role="button">Lorem, ipsum.</a>
-                  <a class="btn btn-lg psu-btn psu-mb-3" href="#" role="button">Lorem, ipsum.</a>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-sm-12 col-md-6">
-              <div class="psu-form-wrap">
-                <!-- sign up form -->
-                <form data-parsley-validate="" class="psu-form open" id="psu-signup" data-form-type="signup" method="POST" action="#">
-                  <div class="form-section form-section-signup" id="user-contact">
-                    <div class="psu-form-heading">
-                      <h2>
-                        Sign Up To Get Started
-                      </h2>
-                      <span>Already a member? <span class="psu-login-link">Login</span></span>
-                    </div>
-                    <div class="form-group">
-                      <label for="psu-email">Email address</label>
-                      <input 
-                        required 
-                        name="email"
-                        data-parsley-group="first"
-                        data-parsley-required-message="Email address is required"
-                        data-parsley-trigger="change" 
-                        data-parsley-type-message="Must be a valid email address" 
-                        type="email" 
-                        class="form-control input-lg" 
-                        id="psu-email"> 
-                    </div>
-                    <div class="form-group">
-                      <label for="psu-password">Password</label>
-                      <input 
-                        required 
-                        data-parsley-group="first"
-                        type="password" 
-                        name="password"
-                        data-parsley-minlength="6"
-                        data-parsley-minlength-message="Password should be at least 6 characters long"
-                        data-parsley-required-message="Password is required"
-                        data-parsley-trigger="focusout" 
-                        class="form-control input-lg" 
-                        id="psu-password">
-                    </div>
-                    <div class="form-group">
-                      <label for="psu-confirmpassword">Confirm Password</label>
-                      <input 
-                        required 
-                        name="password"
-                        data-parsley-group="first"
-                        data-parsley-required-message="Password is required"
-                        data-parsley-trigger="focusout"  
-                        data-parsley-equalto-message="Passwords do not match" 
-                        data-parsley-equalto="#psu-password" 
-                        type="password" 
-                        class="form-control input-lg" 
-                        id="psu-confirmpassword" >
-                    </div>
-                    <div class="form-group">
-                      <label  class="psu-form-checkbox-label">
-                        <input 
-                          required 
-                          data-parsley-group="first"
-                          class="psu-form-checkbox" 
-                          id="psu-terms" 
-                          name="terms" 
-                          type="checkbox"
-                        > 
-                        I have read and accept the <a href="#">terms and conditions</a> 
-                      </label> 
-                    </div>
-                  </div>
-
-                  <div class="form-section form-section-signup user-type" id="user-type">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <h2>Choose your category</h2>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6">
-                        <div class="content-wrap">
-                          <div id="student-btn" title="Student: Lorem ipsum dolor sit" class="image-wrap">
-                            <img src="https://library.kissclipart.com/20180918/xue/kissclipart-user-icon-student-clipart-computer-icons-student-u-547c908867a5f248.png" alt="Student">
-                          </div>
-                          <p class="image-title"><label for="psu-radio-1">Student</label></p>
-                          <div class="psu-radio-wrap">
-                            <input
-                              id="psu-radio-1" 
-                              required
-                              data-parsley-group="second"
-                              type="radio" 
-                              class="psu-radio" 
-                              name="choice" 
-                              value="student" 
-                              >
-                            <span class="psu-radio-check"></span>
-                            <label for="psu-radio-1" class="psu-radio-text">Student</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xs-6">
-                        <div class="content-wrap">
-                          <div id="tutor-btn" title="Tutor: Lorem ipsum dolor sit" class="image-wrap">
-                            <img src="https://www.iconfinder.com/data/icons/company-business-people-1/32/busibess_people-50-512.png" alt="Tutor">
-                          </div>
-                          <p class="image-title"><label for="psu-radio-2">Tutor</label></p>
-
-                          <div class="psu-radio-wrap">
-                            <input 
-                              id="psu-radio-2"
-                              data-parsley-group="second" 
-                              type="radio" 
-                              class="psu-radio" 
-                              name="choice" 
-                              value="tutor">
-                            <span class="psu-radio-check"></span>
-                            <label for="psu-radio-2" class="psu-radio-text">Tutor</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="previous-btn-container">
-                          <div class="form-cta-wrap">
-                            <div class="cta-btn">
-                              <span class="previous-btn" id="previous-btn">&larr;</span>previous
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- sign up status (success/error) alerts -->
-                  <div class="alert alert-info psu-form-alert hidden" id="signup-success" role="alert">
-                    <div class="img-wrap">
-                      <img class="alert-success-img" src="https://previews.123rf.com/images/juliarstudio/juliarstudio1604/juliarstudio160401289/55304034-hourglass-icon-in-cartoon-style-on-a-white-background.jpg" alt="">
-                    </div>
-                    <h3 class="alert-heading">Sign Up Successful!</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur.</p> 
-                  </div>
-                  <div class="alert alert-info psu-form-alert hidden" id="signup-error" role="alert">
-                    <div class="img-wrap">
-                      <img src="https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png" alt="">
-                    </div>
-                    <h3>Uh Oh!</h3>
-                    <p>Looks like something went wrong</p> 
-                    <button type="button" class="retry-btn">Try again</button>
-                  </div>
-        
-                  <button type="button" class="btn psu-form-btn" id="psu-signup-btn">Sign Up</button>
-                </form>
+  <div class="psu-header-wrap">
+    <nav class="navbar navbar-default psu-navbar">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand psu-nav-brand hidden-sm" href="#home">LOGO</a>
+      </div>
   
-                <!-- login form -->
-                <form data-parsley-validate="" class="psu-form" id="psu-login" data-form-type="login">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav psu-navigation">
+          <li class="active psu-nav-item"><a class="psu-nav-link" href="#">About</a></li>
+          <li class="psu-nav-item psu-mx-auto hidden-xs"><a class="psu-nav-brand" href="#home">LOGO</a></li>
+          <li class="psu-nav-item"><a class="psu-nav-link psu-nav-cta" href="#">Get Started</a></li>
+          <li class="psu-nav-item"><a class="psu-nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="psu-jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="psu-jumbotron-content-wrap">
+              <h1 class="psu-jumbotron-heading">Lorem ipsum dolor sit amet consectetur.</h1>
+              <p class="psu-jumbotron-subheading">Lorem ipsum dolor sit.</p>
+              <div class="psu-jumbotron-action">
+                <a class="btn btn-lg psu-btn psu-mb-3" href="#" role="button">Lorem, ipsum.</a>
+                <a class="btn btn-lg psu-btn psu-mb-3" href="#" role="button">Lorem, ipsum.</a>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div class="psu-form-wrap">
+              <!-- sign up form -->
+              <form data-parsley-validate="" class="psu-form open" id="psu-signup" data-form-type="signup" method="POST" action="#">
+                <div class="form-section form-section-signup" id="user-contact">
                   <div class="psu-form-heading">
-                    <h2>Login</h2>
-                    <span>Not a member? <span class="psu-signup-link">Sign Up</span></span>
+                    <h2>
+                      Sign Up To Get Started
+                    </h2>
+                    <span>Already a member? <span class="psu-login-link">Login</span></span>
                   </div>
                   <div class="form-group">
                     <label for="psu-email">Email address</label>
                     <input 
-                      type="email" 
-                      name="email" 
-                      class="form-control input-lg" 
-                      id="psu-login-email" 
                       required 
-                      data-parsley-required-message="Email is required"
+                      name="email"
+                      data-parsley-group="first"
+                      data-parsley-required-message="Email address is required"
                       data-parsley-trigger="change" 
                       data-parsley-type-message="Must be a valid email address" 
-                      >
+                      type="email" 
+                      class="form-control input-lg" 
+                      id="psu-email"> 
                   </div>
                   <div class="form-group">
                     <label for="psu-password">Password</label>
                     <input 
+                      required 
+                      data-parsley-group="first"
                       type="password" 
-                      name="passsword" 
-                      class="form-control input-lg" 
-                      required
+                      name="password"
+                      data-parsley-minlength="6"
+                      data-parsley-minlength-message="Password should be at least 6 characters long"
                       data-parsley-required-message="Password is required"
                       data-parsley-trigger="focusout" 
-                      id="psu-login-password">
+                      class="form-control input-lg" 
+                      id="psu-password">
                   </div>
-  
+                  <div class="form-group">
+                    <label for="psu-confirmpassword">Confirm Password</label>
+                    <input 
+                      required 
+                      name="password"
+                      data-parsley-group="first"
+                      data-parsley-required-message="Password is required"
+                      data-parsley-trigger="focusout"  
+                      data-parsley-equalto-message="Passwords do not match" 
+                      data-parsley-equalto="#psu-password" 
+                      type="password" 
+                      class="form-control input-lg" 
+                      id="psu-confirmpassword" >
+                  </div>
                   <div class="form-group">
                     <label  class="psu-form-checkbox-label">
-                      <input class="psu-form-checkbox" name="remember" type="checkbox">Remember me 
+                      <input 
+                        required 
+                        data-parsley-group="first"
+                        class="psu-form-checkbox" 
+                        id="psu-terms" 
+                        name="terms" 
+                        type="checkbox"
+                      > 
+                      I have read and accept the <a href="#">terms and conditions</a> 
                     </label> 
                   </div>
-              
-                  <button type="submit" id="psu-login-btn" class="btn psu-form-btn">Login</button>
-                  <p class="psu-forgot-password"><a class="psu-forgot-password-link" href="#">Forgot your password?</a></p>
-                </form>
-  
-              </div>
+                </div>
+
+                <div class="form-section form-section-signup user-type" id="user-type">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <h2>Choose your category</h2>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="content-wrap">
+                        <div id="student-btn" title="Student: Lorem ipsum dolor sit" class="image-wrap">
+                          <img src="https://library.kissclipart.com/20180918/xue/kissclipart-user-icon-student-clipart-computer-icons-student-u-547c908867a5f248.png" alt="Student">
+                        </div>
+                        <p class="image-title"><label for="psu-radio-1">Student</label></p>
+                        <div class="psu-radio-wrap">
+                          <input
+                            id="psu-radio-1" 
+                            required
+                            data-parsley-group="second"
+                            type="radio" 
+                            class="psu-radio" 
+                            name="choice" 
+                            value="student" 
+                            >
+                          <span class="psu-radio-check"></span>
+                          <label for="psu-radio-1" class="psu-radio-text">Student</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <div class="content-wrap">
+                        <div id="tutor-btn" title="Tutor: Lorem ipsum dolor sit" class="image-wrap">
+                          <img src="https://www.iconfinder.com/data/icons/company-business-people-1/32/busibess_people-50-512.png" alt="Tutor">
+                        </div>
+                        <p class="image-title"><label for="psu-radio-2">Tutor</label></p>
+
+                        <div class="psu-radio-wrap">
+                          <input 
+                            id="psu-radio-2"
+                            data-parsley-group="second" 
+                            type="radio" 
+                            class="psu-radio" 
+                            name="choice" 
+                            value="tutor">
+                          <span class="psu-radio-check"></span>
+                          <label for="psu-radio-2" class="psu-radio-text">Tutor</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="previous-btn-container">
+                        <div class="form-cta-wrap">
+                          <div class="cta-btn">
+                            <span class="previous-btn" id="previous-btn">&larr;</span>previous
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- sign up status alerts (success/error) -->
+                <div class="alert alert-info psu-form-alert hidden" id="signup-success" role="alert">
+                  <div class="img-wrap">
+                    <img class="alert-success-img" src="https://previews.123rf.com/images/juliarstudio/juliarstudio1604/juliarstudio160401289/55304034-hourglass-icon-in-cartoon-style-on-a-white-background.jpg" alt="">
+                  </div>
+                  <h3 class="alert-heading">Sign Up Successful!</h3>
+                  <p>Lorem ipsum dolor sit amet consectetur.</p> 
+                </div>
+                <div class="alert alert-info psu-form-alert hidden" id="signup-error" role="alert">
+                  <div class="img-wrap">
+                    <img src="https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png" alt="">
+                  </div>
+                  <h3>Uh Oh!</h3>
+                  <p>Looks like something went wrong</p> 
+                  <button type="button" class="retry-btn">Try again</button>
+                </div>
+      
+                <button type="button" class="btn psu-form-btn" id="psu-signup-btn">Sign Up</button>
+              </form>
+
+              <!-- login form -->
+              <form data-parsley-validate="" class="psu-form" id="psu-login" data-form-type="login">
+                <div class="psu-form-heading">
+                  <h2>Login</h2>
+                  <span>Not a member? <span class="psu-signup-link">Sign Up</span></span>
+                </div>
+                <div class="form-group">
+                  <label for="psu-email">Email address</label>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    class="form-control input-lg" 
+                    id="psu-login-email" 
+                    required 
+                    data-parsley-required-message="Email is required"
+                    data-parsley-trigger="change" 
+                    data-parsley-type-message="Must be a valid email address" 
+                    >
+                </div>
+                <div class="form-group">
+                  <label for="psu-password">Password</label>
+                  <input 
+                    type="password" 
+                    name="passsword" 
+                    class="form-control input-lg" 
+                    required
+                    data-parsley-required-message="Password is required"
+                    data-parsley-trigger="focusout" 
+                    id="psu-login-password">
+                </div>
+
+                <div class="form-group">
+                  <label  class="psu-form-checkbox-label">
+                    <input class="psu-form-checkbox" name="remember" type="checkbox">Remember me 
+                  </label> 
+                </div>
+            
+                <button type="submit" id="psu-login-btn" class="btn psu-form-btn">Login</button>
+                <p class="psu-forgot-password"><a class="psu-forgot-password-link" href="#">Forgot your password?</a></p>
+              </form>
+
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </body>
 </html>
