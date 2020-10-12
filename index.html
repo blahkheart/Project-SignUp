@@ -38,6 +38,9 @@
           margin-left: auto;
           margin-right: auto;
         }
+        .psu-mb-3{
+          margin-bottom: 15px;
+        }
         .psu-d-flex{
           display: flex;
         }
@@ -117,8 +120,11 @@
           border: 2px solid transparent;
           font-weight: 700;
         }
+        .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+          border: none;
+        }
 
-        /* media queries */
+        /* navigation media queries */
         @media screen and (min-width: 768px){
           .psu-navbar{
             display: flex;
@@ -232,11 +238,8 @@
         opacity: 0;
         display: none;
         transition: all .25s ease-in;
-        animation-name: moveInRight;
-        animation-duration: .95s;
-        animation-timing-function: ease-out;
-
       }
+
       .psu-form-heading{
         text-align: center;
       }
@@ -305,6 +308,7 @@
       }
       .psu-form label.psu-form-checkbox-label{
         margin-bottom: 0;
+        cursor: pointer;
       }
       .psu-form-checkbox-label a{
         color: #01AAE4;
@@ -405,11 +409,20 @@
     /* USER-TYPE SELECTION FORM SEGMENT */
 
     .form-section.user-type{
-      position: absolute;
+      /* position: absolute;
       top: 50px;
       left: 64px;
       z-index: -1;
+      opacity: 0;*/
+      position: absolute; 
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
       opacity: 0;
+      max-width: 420px;
+      /* max-width: 390px; */
+      width: 100%;
     }
     .form-section.user-type.show{
       z-index: 10;
@@ -421,7 +434,7 @@
       text-align: center;
       margin-top: 30px;
       text-transform: capitalize;
-      margin-right: 45px;
+      /* margin-right: 45px; */
     }
     .content-wrap {
       font-size: 18px;
@@ -431,6 +444,7 @@
       flex-direction: column;
       align-items: center;
       display: flex;
+      margin-bottom: 50px;
     }
     span#previous-btn {
       font-size: 24px;
@@ -451,13 +465,10 @@
     .form-cta-wrap {
       font-size: 12px;
       font-weight: 700;
-      color: rgba(0, 0, 0, 0.5);
-      position: absolute;
-      display: block;
-      cursor: pointer;
       font-family: montserrat;
-      top: 445px;
-      right: 65px;
+      color: rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      cursor: pointer;
       text-align: right;
       padding: 5px 15px 5px 9px;
       border: 1px solid rgba(0, 0, 0, 0.5);
@@ -484,16 +495,16 @@
       cursor: pointer;
       transition: all .25s ease-out;
     }
-    .content-wrap .image-wrap:first-of-type{
+    /* .content-wrap .image-wrap:first-of-type{
       margin-right: 42px;
-    }
+    } */
     .content-wrap .image-wrap:hover {
       transform: scale(1.3);
       border: 1px solid rgba(0,0,0,.9);
     }
-    .content-wrap .image-title{
+    /* .content-wrap .image-title{
       margin-right: 37px;
-    }
+    } */
     .content-wrap .image-title label {
       transition: all .25s ease-out;
       cursor: pointer;
@@ -502,22 +513,89 @@
     .content-wrap .image-title label:hover{
       color: #534846;
     }
+    .previous-btn-container{
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
     .alert.alert-info.psu-form-alert{
       font-weight: 700;
     }
-
     .alert-info {
       background-color: #fff;
       position: absolute;
       z-index: 20;
       text-align: center;
       width: 373px;
-      bottom: -250px;
-      left: 15px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
       padding: 20px;
       border: none;
       box-shadow: 0px 1px 7px rgba(0,0,0,.2);
       transition: all .25s ease-out;
+    }
+
+
+    /* form media queries */
+    @media screen and (max-width:425px) {
+      .psu-form {
+        padding: 50px 25px 60px;
+        position: relative;
+      }
+      .form-section.user-type {
+        position: absolute;
+        top: 47%;
+        left: 50%;
+        z-index: -1;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        max-width: 240px;
+        width: 100%;
+      }
+      .content-wrap .image-wrap:first-of-type,.content-wrap .image-title,.form-section.user-type h2 {
+        margin-right: 0;
+      }
+      .content-wrap .image-wrap:hover {
+        transform: scale(1.1);
+      }
+      .alert-info {
+        width: 320px;
+      }
+    }
+
+    @media screen and (min-width: 426px){
+      .form-section.user-type {
+        max-width: 290px;
+      }
+      .content-wrap .image-wrap:hover {
+        transform: scale(1.15);
+      }
+      .alert-info {
+        top: 58%;
+      }
+    }
+    @media screen and (min-width: 495px) and (max-width:991px){
+      .form-section.user-type {
+        max-width: 350px;
+      }
+      .form-cta-wrap {
+        margin-right: 10px;
+      }
+    }
+    @media screen and (min-width: 600px){
+      .form-section.user-type {
+        max-width: 420px;
+      }
+      .alert-info {
+        width: 420px;
+      }
+      .form-cta-wrap {
+        margin-right: 25px;
+      }
+      .alert-info {
+        width: 390px;
+      }
     }
 
 
@@ -547,6 +625,9 @@
       margin-bottom: 10px;
       color: #000;
     }
+    div.alert.alert-info.psu-form-alert h3.success{
+      color: #008000;
+    }
     div.alert.alert-info.psu-form-alert p{
       font-size: 18px;
       color: rgba(0,0,0,.3);
@@ -571,41 +652,13 @@
       outline-color: #c41a07;
     }
 
-    /* ANIMATIONS */
-    @keyframes moveInLeft {
-      0% {
-        opacity: 0;
-        transform: translateX(-100px);
-      }
-      80% {
-        transform: translateX(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(0);
-      }
-    }
-    @keyframes moveInRight {
-      0% {
-        opacity: 0;
-        transform: translateX(200px);
-      }
-      80% {
-        transform: translateX(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(0);
-      }
-    }
-    </style>
+     </style>
 
     <script>
       $('document').ready(function(){
 
       // variables
-      let formOverlay = $('.psu-form-overlay'),
-          formContainer = $('.psu-form-wrap'),
+      let formContainer = $('.psu-form-wrap'),
           getStartedButton = $('.psu-nav-cta'),
           signupForm = $('#psu-signup'),
           signupLink = $('.psu-signup-link'),
@@ -680,6 +733,7 @@
           $('#user-contact').animate({opacity: '1'}, 'slow');
           $('#psu-signup-btn').removeClass('hide-btn');
           $('.alert-success-img').prop('src', 'https://previews.123rf.com/images/juliarstudio/juliarstudio1604/juliarstudio160401289/55304034-hourglass-icon-in-cartoon-style-on-a-white-background.jpg');
+          $('.alert-heading').removeClass('success');
           $(signupForm)[0].reset() 
         }
 
@@ -696,6 +750,7 @@
           setTimeout(() => {
             $('.alert-success-img').prop('src', 'https://www.clipartkey.com/mpngs/m/283-2836740_success-icon-transparent-green-success-png-icon.png');
             $('.alert-heading').text('Registration is successful!');
+            $('.alert-heading').addClass('success');
           }, 1000);
 
           setTimeout(redirectToLogin, 2500);
@@ -711,11 +766,15 @@
         //SIGN UP ERROR FEEDBACK
         function signupErrorFeedback () {
           $('#signup-error').removeClass('hidden');
+          $('.form-cta-wrap').addClass('hidden');
         }
 
         function closeErrorMessage () {
           $('#signup-error').addClass('hidden');
+          $('.form-cta-wrap').removeClass('hidden');
           $('#psu-radio-1').prop("checked", false);
+          $('.form-cta-wrap').trigger('click');
+          $('#psu-email').focus();
         }
 
         $('.retry-btn').click(closeErrorMessage);
@@ -766,18 +825,18 @@
       <div class="psu-jumbotron">
         <div class="container">
           <div class="row">
-            <div id="first-column" class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6">
               <div class="psu-jumbotron-content-wrap">
                 <h1 class="psu-jumbotron-heading">Lorem ipsum dolor sit amet consectetur.</h1>
                 <p class="psu-jumbotron-subheading">Lorem ipsum dolor sit.</p>
                 <div class="psu-jumbotron-action">
-                  <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
-                  <a class="btn btn-lg psu-btn" href="#" role="button">Lorem, ipsum.</a>
+                  <a class="btn btn-lg psu-btn psu-mb-3" href="#" role="button">Lorem, ipsum.</a>
+                  <a class="btn btn-lg psu-btn psu-mb-3" href="#" role="button">Lorem, ipsum.</a>
                 </div>
               </div>
 
             </div>
-            <div id="second-column" class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6">
               <div class="psu-form-wrap">
                 <!-- sign up form -->
                 <form data-parsley-validate="" class="psu-form open" id="psu-signup" data-form-type="signup" method="POST" action="#">
@@ -847,32 +906,7 @@
                   <div class="form-section form-section-signup user-type" id="user-type">
                     <div class="row">
                       <div class="col-xs-12">
-                        <div class="form-cta-wrap">
-                          <div href="#psu-signup" class="cta-btn">
-                            <span class="previous-btn" id="previous-btn">&larr;</span>previous
-                          </div>
-                        </div>
-
                         <h2>Choose your category</h2>
-
-                        <div class="psu-form-overlay"></div>
-                        
-                        <!-- sign up status (success/error) alerts -->
-                        <div class="alert alert-info psu-form-alert hidden" id="signup-success" role="alert">
-                          <div class="img-wrap">
-                            <img class="alert-success-img" src="https://previews.123rf.com/images/juliarstudio/juliarstudio1604/juliarstudio160401289/55304034-hourglass-icon-in-cartoon-style-on-a-white-background.jpg" alt="">
-                          </div>
-                          <h3 class="alert-heading">Sign Up Successful!</h3>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p> 
-                        </div>
-                        <div class="alert alert-info psu-form-alert hidden" id="signup-error" role="alert">
-                          <div class="img-wrap">
-                            <img src="https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png" alt="">
-                          </div>
-                          <h3>Uh Oh!</h3>
-                          <p>Looks like something went wrong</p> 
-                          <button type="button" class="retry-btn">Try again</button>
-                        </div>
                       </div>
                     </div>
                     <div class="row">
@@ -918,6 +952,34 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="previous-btn-container">
+                          <div class="form-cta-wrap">
+                            <div class="cta-btn">
+                              <span class="previous-btn" id="previous-btn">&larr;</span>previous
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- sign up status (success/error) alerts -->
+                  <div class="alert alert-info psu-form-alert hidden" id="signup-success" role="alert">
+                    <div class="img-wrap">
+                      <img class="alert-success-img" src="https://previews.123rf.com/images/juliarstudio/juliarstudio1604/juliarstudio160401289/55304034-hourglass-icon-in-cartoon-style-on-a-white-background.jpg" alt="">
+                    </div>
+                    <h3 class="alert-heading">Sign Up Successful!</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur.</p> 
+                  </div>
+                  <div class="alert alert-info psu-form-alert hidden" id="signup-error" role="alert">
+                    <div class="img-wrap">
+                      <img src="https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png" alt="">
+                    </div>
+                    <h3>Uh Oh!</h3>
+                    <p>Looks like something went wrong</p> 
+                    <button type="button" class="retry-btn">Try again</button>
                   </div>
         
                   <button type="button" class="btn psu-form-btn" id="psu-signup-btn">Sign Up</button>
@@ -935,7 +997,7 @@
                       type="email" 
                       name="email" 
                       class="form-control input-lg" 
-                      id="psu-email" 
+                      id="psu-login-email" 
                       required 
                       data-parsley-required-message="Email is required"
                       data-parsley-trigger="change" 
@@ -951,7 +1013,7 @@
                       required
                       data-parsley-required-message="Password is required"
                       data-parsley-trigger="focusout" 
-                      id="psu-password">
+                      id="psu-login-password">
                   </div>
   
                   <div class="form-group">
